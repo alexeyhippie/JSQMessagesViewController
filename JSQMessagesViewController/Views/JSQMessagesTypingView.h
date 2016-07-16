@@ -16,16 +16,24 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+// TODO: write documentation
+//
+// https://github.com/jessesquires/JSQMessagesViewController/issues/1647
+//
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSString (JSQMessages)
+@interface JSQMessagesTypingView : UIView
 
-/**
- *  @return A copy of the receiver with all leading and trailing whitespace removed.
- */
-- (NSString *)jsq_stringByTrimingWhitespace;
+@property (strong, nonatomic) UIColor *dotsColor;
+
+@property (strong, nonatomic) UIColor *animateToColor;
+
+@property (assign, nonatomic) CGFloat animationDuration;
+
+@property (assign, nonatomic) BOOL animated;
 
 @end
 
