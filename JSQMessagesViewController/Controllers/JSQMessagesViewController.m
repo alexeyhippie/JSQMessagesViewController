@@ -452,19 +452,23 @@ JSQMessagesKeyboardControllerDelegate>
     if (numberOfItems == 0) {
         return;
     }
-
+    
     CGFloat collectionViewContentHeight = [self.collectionView.collectionViewLayout collectionViewContentSize].height;
-    BOOL isContentTooSmall = (collectionViewContentHeight < CGRectGetHeight(self.collectionView.bounds));
-
+    CGFloat collectionViewHeight = CGRectGetHeight(self.collectionView.bounds);
+    BOOL isContentTooSmall = (collectionViewContentHeight < collectionViewHeight + 10.f);
+    
     if (isContentTooSmall) {
         //  workaround for the first few messages not scrolling
         //  when the collection view content size is too small, `scrollToItemAtIndexPath:` doesn't work properly
         //  this seems to be a UIKit bug, see #256 on GitHub
-        [self.collectionView scrollRectToVisible:CGRectMake(0.0, collectionViewContentHeight - 1.0f, 1.0f, 1.0f)
-                                        animated:animated];
+        
+        CGFloat contentWindow = collectionViewHeight - self.collectionView.contentInset.top - self.collectionView.contentInset.bottom - self.topContentAdditionalInset - self.bottomContentAdditionalInset;
+        CGFloat offsetH = MAX(0.f, collectionViewContentHeight - contentWindow) - self.collectionView.contentInset.top - self.topContentAdditionalInset;
+        [self.collectionView setContentOffset:CGPointMake(0.f, offsetH) animated:YES];
+        
         return;
     }
-
+    
     NSInteger item = MAX(MIN(indexPath.item, numberOfItems - 1), 0);
     indexPath = [NSIndexPath indexPathForItem:item inSection:0];
 
