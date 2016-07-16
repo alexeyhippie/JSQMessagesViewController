@@ -463,7 +463,7 @@ JSQMessagesKeyboardControllerDelegate>
         //  this seems to be a UIKit bug, see #256 on GitHub
         
         CGFloat contentWindow = collectionViewHeight - self.collectionView.contentInset.top - self.collectionView.contentInset.bottom - self.topContentAdditionalInset - self.bottomContentAdditionalInset;
-        CGFloat offsetH = MAX(0.f, collectionViewContentHeight - contentWindow) - self.collectionView.contentInset.top - self.topContentAdditionalInset;
+        CGFloat offsetH = MAX(0.f, collectionViewContentHeight - contentWindow) - self.collectionView.contentInset.top;
         [self.collectionView setContentOffset:CGPointMake(0.f, offsetH) animated:YES];
         
         return;
